@@ -39,12 +39,12 @@ Adversarial Search
 ------------------
 
 Provided is a very basic adversarial search algorithm that works with a low number of iterations.
-Iteration 1:
+
 .. image:: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter1.png
     :target: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter1.png
-Iteration 2:
+
 .. image:: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter2.png
     :target: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter2.png
-Iteration 3:
+
 .. image:: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter3.png
     :target: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter3.png
