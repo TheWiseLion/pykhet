@@ -25,7 +25,7 @@ class Game(KhetBoard):
 
         path_results = []
         for p in path:
-            path_results.append({"position": {"x": p[0].x, "y": p[0].y}, "type": p[1].value})
+            path_results.append({"position": p.to_dictionary(), "type": p[1].value})
 
         if piece is not None:
             results["destroyed"] = piece.to_dictionary()

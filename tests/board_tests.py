@@ -26,6 +26,9 @@ class TestBoardMethods(unittest.TestCase):
         self.assertEquals(str(p1), str(Piece.from_dictionary(p1.to_dictionary())))
         self.assertEquals(str(p2), str(Piece.from_dictionary(p2.to_dictionary())))
 
+        pos = Position(1,2)
+        self.assertEquals(str(pos), str(Position.from_dictionary(pos.to_dictionary())))
+
     def test_set(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))
         self.board.set_piece(Position(9, 7), Piece(PieceType.sphinx, TeamColor.red, Orientation.up))

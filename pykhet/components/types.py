@@ -23,9 +23,9 @@ class Move(object):
     def to_dictionary(self):
         value = self.value
         if not isinstance(value, (int, long, float)):
-            value = {"x": value.x, "y": value.y}
+            value = value.to_dictionary()
 
-        return {"type": self.type.value, "position": {"x": self.position.x, "y": self.position.y}, "value": value}
+        return {"type": self.type.value, "position": self.position.to_dictionary(), "value": value}
 
     @staticmethod
     def from_dictionary(value):
@@ -242,6 +242,13 @@ class Position(object):
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
 
+    def to_dictionary(self):
+        return {"x": self.x, "y": self.y}
+
+    @staticmethod
+    def from_dictionary(value):
+        return Position(value["x"], value["y"])
+
 
 class Piece(object):
     """Generic Piece Class"""
@@ -299,7 +306,7 @@ class Square(object):
         return moves
 
     def to_dictionary(self):
-        value = {"position": {"x": self.position.x, "y": self.position.y}, "color": self.color.value}
+        value = {"position": self.position.to_dictionary(), "color": self.color.value}
         if self.piece is not None:
             value["piece"] = self.piece.to_dictionary()
         return value

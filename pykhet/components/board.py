@@ -204,7 +204,7 @@ class KhetBoard(object):
         board = KhetBoard()
         for square in lst:
             if "piece" in square:
-                pos = Position(square["position"]["x"], square["position"]["y"])
+                pos = Position.from_dictionary(square["position"])
                 piece = Piece.from_dictionary(square["piece"])
                 board.set_piece(pos, piece)
 
