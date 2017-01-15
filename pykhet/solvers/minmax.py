@@ -130,7 +130,7 @@ class MinmaxSolver(object):
         :param color:
         :return:
         """
-        evaluations = 0L
+        evaluations = 0
         root = Node(color, board, color)
 
         evaluations += root.expand()
