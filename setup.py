@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pykhet',
-    packages=['pykhet'],  # this must be the same as the name above
+    packages=['pykhet','pykhet.components','pykhet.games','pykhet.solvers'],  # this must be the same as the name above
     version='0.11',
     description='A general library for the board game khet',
     author='John Mecham',
