@@ -11,4 +11,7 @@ setup(
     download_url='https://github.com/TheWiseLion/pykhet/tarball/0.1',
     keywords=['khet', 'boardgame', 'khet2.0', 'laser-chess', 'ai'],  # arbitrary keywords
     classifiers=[],
+    install_requires=[
+          'enum34',
+    ]
 )
