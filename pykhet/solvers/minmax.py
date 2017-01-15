@@ -1,5 +1,6 @@
 # Solver Chooses From Available Moves
-from pykhet.components import PieceType, TeamColor, KhetBoard
+from pykhet.components.board import KhetBoard
+from pykhet.components.types import Position, Piece, PieceType, TeamColor, Orientation
 
 piece_to_score = {PieceType.anubis: 2, PieceType.pyramid: 1, PieceType.scarab: 0, PieceType.sphinx: 0}
 

@@ -1,9 +1,9 @@
 import unittest
 
-from components.types import MoveType, Move, TeamColor, Orientation
-from components.types import Position
+from pykhet.components.types import MoveType, Move, TeamColor, Orientation
+from pykhet.components.types import Position
 
-from pykhet.games import ClassicGame
+from pykhet.games.game_types import ClassicGame
 
 
 class TestClassicGames(unittest.TestCase):

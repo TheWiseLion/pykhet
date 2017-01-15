@@ -1,6 +1,6 @@
 import unittest
 
-from pykhet.components import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
+from pykhet.components.board import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -24,7 +24,6 @@ class TestBoardMethods(unittest.TestCase):
         self.assertTrue(len(self.board.squares_with_pieces_of_color(TeamColor.red)) is 2)
         self.board.remove_piece(Position(9, 7))
         self.assertTrue(len(self.board.squares_with_pieces_of_color(TeamColor.red)) is 1)
-
 
     def test_remove(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))
@@ -75,6 +74,7 @@ class TestBoardMethods(unittest.TestCase):
         squares = self.board.to_serialized_squares_full()
         board = KhetBoard.from_serialized_squares(squares)
         self.assertTrue(board.get(0, 0).piece.color is TeamColor.silver)
+
 
 if __name__ == '__main__':
     unittest.main()
