@@ -22,7 +22,7 @@ class Move(object):
 
     def to_dictionary(self):
         value = self.value
-        if not isinstance(value, (int, long, float)):
+        if not isinstance(value, (int, float)):
             value = value.to_dictionary()
 
         return {"type": self.type.value, "position": self.position.to_dictionary(), "value": value}
