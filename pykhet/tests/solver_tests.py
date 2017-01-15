@@ -1,8 +1,9 @@
 import unittest
 
 from components.board import TeamColor
-from games.game_types import ClassicGame
 from solvers.minmax import MinmaxSolver
+
+from pykhet.games import ClassicGame
 
 
 class TestClassicGameSolver(unittest.TestCase):

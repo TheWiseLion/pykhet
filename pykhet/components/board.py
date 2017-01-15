@@ -1,6 +1,4 @@
-import copy
-
-from components.types import TeamColor, Position, Square, PieceType, LaserPathType, Orientation, MoveType, Piece
+from pykhet.components.types import TeamColor, Position, Square, PieceType, LaserPathType, Orientation, MoveType, Piece
 
 
 class KhetBoard(object):

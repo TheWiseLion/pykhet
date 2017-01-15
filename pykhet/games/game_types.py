@@ -1,7 +1,7 @@
 # Game is composed of a board, initial positions, and valid moves
 import abc
 
-from components.board import KhetBoard, Position, Piece, PieceType, TeamColor, Orientation
+from pykhet.components import KhetBoard, Position, Piece, PieceType, TeamColor, Orientation
 
 
 class Game(KhetBoard):

@@ -1,6 +1,6 @@
 import unittest
 
-from components.board import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
+from pykhet.components import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
 
 
 class TestBoardMethods(unittest.TestCase):
