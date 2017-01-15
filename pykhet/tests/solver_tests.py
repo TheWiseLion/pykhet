@@ -25,7 +25,5 @@ class TestClassicGameSolver(unittest.TestCase):
             move = solver.get_move(game, color)
             game.apply_move(move)
             game.apply_laser(color)
-            print len(game.squares_with_pieces_of_color(TeamColor.silver)), " vs ", \
-                len(game.squares_with_pieces_of_color(TeamColor.red))
             color = TeamColor.opposite_color(color)
             iterations += 1
