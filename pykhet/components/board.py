@@ -1,4 +1,5 @@
-from pykhet.components.types import TeamColor, Position, Square, PieceType, LaserPathType, Orientation, MoveType, Piece
+from pykhet.components.types import TeamColor, Position, Square, PieceType, LaserPathType, Orientation, MoveType, Piece, \
+    LaserPathNode
 
 
 class KhetBoard(object):
@@ -9,6 +10,7 @@ class KhetBoard(object):
     """
 
     def __init__(self, squares=None):
+        self.winner = None
         self.sphinxes = {}
         self.color_pieces = {TeamColor.red: [], TeamColor.silver: []}
         self.squares = [x[:] for x in [[None] * 8] * 10]
@@ -97,7 +99,7 @@ class KhetBoard(object):
                     else:
                         path_type = LaserPathType.bounce
 
-                path.append((next_position, path_type, tmp_dir))
+                path.append(LaserPathNode(path_type, next_position, tmp_dir))
                 last_position = next_position
                 last_event = path_type
             else:
@@ -148,23 +150,43 @@ class KhetBoard(object):
         else:
             self.move_piece(move.position, move.value)
 
-    def apply_laser(self, color):
+    def _apply_laser(self, color):
         """
-        Applies Board Changes
+        Applies Board Changes Based On Firing Laser Of Given Color
         :param color:
         :return:
         """
         path = self.get_laser_path(color)
-        if path[-1][1] is LaserPathType.hit:
-            square = self.get(path[-1][0].x, path[-1][0].y)
-            if (square.piece.type is PieceType.anubis and square.piece.orientation is path[-1][2]) \
+        if path[-1].type is LaserPathType.hit:
+            square = self.get(path[-1].position.x, path[-1].position.y)
+            if (square.piece.type is PieceType.anubis and square.piece.orientation is path[-1].direction) \
                     or square.piece.type is PieceType.sphinx:
                 # Hit but not destroyed
                 pass
             else:
-                piece = self.remove_piece(path[-1][0])
+                piece = self.remove_piece(path[-1].position)
                 return path, piece
         return path, None
+
+    def apply_laser(self, color):
+        """
+        Returns path the laser took and piece destroyed (if any) and new winner (if one)
+        :param color:
+        :return:
+        """
+        if self.winner is not None:
+            raise RuntimeError("Game is already complete " + str(self.winner.value) + " won")
+        results = {}
+        path, piece = self._apply_laser(color)
+
+        if piece is not None:
+            results["destroyed"] = piece
+            if piece.type is PieceType.pharaoh:
+                self.winner = TeamColor.opposite_color(piece.color)
+                results["winner"] = self.winner
+
+        results["path"] = path
+        return results
 
     def board_from_move(self, move, color):
         """

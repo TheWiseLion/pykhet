@@ -1,7 +1,7 @@
 import unittest
 
 from pykhet.components.board import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
-from pykhet.components.types import MoveType, Move
+from pykhet.components.types import MoveType, Move, LaserPathNode
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -26,8 +26,11 @@ class TestBoardMethods(unittest.TestCase):
         self.assertEquals(str(p1), str(Piece.from_dictionary(p1.to_dictionary())))
         self.assertEquals(str(p2), str(Piece.from_dictionary(p2.to_dictionary())))
 
-        pos = Position(1,2)
+        pos = Position(1, 2)
         self.assertEquals(str(pos), str(Position.from_dictionary(pos.to_dictionary())))
+
+        laser = LaserPathNode(LaserPathType.bounce, Position(0, 0), Orientation.down)
+        self.assertEquals(str(laser), str(LaserPathNode.from_dictionary(laser.to_dictionary())))
 
     def test_set(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))
@@ -63,8 +66,8 @@ class TestBoardMethods(unittest.TestCase):
 
         red_path = self.board.get_laser_path(TeamColor.red)
         silver_path = self.board.get_laser_path(TeamColor.silver)
-        self.assertTrue(red_path[-1][1] is LaserPathType.hit and red_path[-1][0].x is 0)
-        self.assertTrue(silver_path[-1][1] is LaserPathType.hit and silver_path[-1][0].x is 9)
+        self.assertTrue(red_path[-1].type is LaserPathType.hit and red_path[-1].position.x is 0)
+        self.assertTrue(silver_path[-1].type is LaserPathType.hit and silver_path[-1].position.x is 9)
 
     def test_bounce_path_complex(self):
         # Test should involve every mirror in every direction
@@ -78,7 +81,7 @@ class TestBoardMethods(unittest.TestCase):
         self.board.set_piece(Position(0, 4), Piece(PieceType.pyramid, TeamColor.silver, Orientation.up))
 
         red_path = self.board.get_laser_path(TeamColor.red)
-        self.assertTrue(red_path[-1][1] is LaserPathType.hit and red_path[-1][0].x is 0)
+        self.assertTrue(red_path[-1].type is LaserPathType.hit and red_path[-1].position.x is 0)
 
     def test_board_serialization(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))

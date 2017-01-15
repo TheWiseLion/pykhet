@@ -14,30 +14,19 @@ class MoveType(Enum):
     swap = "SWAP"
 
 
-class Move(object):
-    def __init__(self, move_type, move_position, move_value):
-        self.type = move_type
-        self.position = move_position
-        self.value = move_value
-
-    def to_dictionary(self):
-        value = self.value
-        if not isinstance(value, (int, float)):
-            value = value.to_dictionary()
-
-        return {"type": self.type.value, "position": self.position.to_dictionary(), "value": value}
+class TeamColor(Enum):
+    red = "red"
+    silver = "silver"
+    blank = "blank"
 
     @staticmethod
-    def from_dictionary(value):
-        move_type = MoveType(value["type"])
-        position = Position(value["position"]["x"], value["position"]["y"])
-        value = value["value"]  # Notice the aliasing...
-        if move_type is not MoveType.rotate:
-            value = Position(value["x"], value["y"])
-        return Move(move_type, position, value)
-
-    def __str__(self):
-        return "{ T: " + str(self.type.value) + ", P: " + str(self.position) + ", V: " + str(self.value) + "}"
+    def opposite_color(color):
+        if color is TeamColor.blank:
+            return TeamColor.blank
+        elif color is TeamColor.silver:
+            return TeamColor.red
+        else:
+            return TeamColor.silver
 
 
 class Orientation(Enum):
@@ -78,19 +67,20 @@ class Orientation(Enum):
                 return Orientation((orientation.value + delta) % 360)
 
 
-class TeamColor(Enum):
-    red = "red"
-    silver = "silver"
-    blank = "blank"
+class Position(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "(" + str(self.x) + "," + str(self.y) + ")"
+
+    def to_dictionary(self):
+        return {"x": self.x, "y": self.y}
 
     @staticmethod
-    def opposite_color(color):
-        if color is TeamColor.blank:
-            return TeamColor.blank
-        elif color is TeamColor.silver:
-            return TeamColor.red
-        else:
-            return TeamColor.silver
+    def from_dictionary(value):
+        return Position(value["x"], value["y"])
 
 
 class PieceType(Enum):
@@ -234,20 +224,53 @@ class PieceType(Enum):
                (piece_to.type is PieceType.pyramid or piece_to.type is PieceType.anubis)
 
 
-class Position(object):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def __str__(self):
-        return "(" + str(self.x) + "," + str(self.y) + ")"
+class LaserPathNode(object):
+    def __init__(self, path_type, position, direction):
+        self.type = path_type
+        self.position = position
+        self.direction = direction
 
     def to_dictionary(self):
-        return {"x": self.x, "y": self.y}
+        return {
+            "type": self.type.value,
+            "position": self.position.to_dictionary(),
+            "direction": self.direction.value
+        }
 
     @staticmethod
     def from_dictionary(value):
-        return Position(value["x"], value["y"])
+        path_type = LaserPathType(value["type"])
+        position = Position.from_dictionary(value["position"])
+        direction = Orientation(value["direction"])
+        return LaserPathNode(path_type, position, direction)
+
+    def __str__(self):
+        return "( "+str(self.type.value)+", "+str(self.position)+", "+str(self.direction.value)+")"
+
+class Move(object):
+    def __init__(self, move_type, move_position, move_value):
+        self.type = move_type
+        self.position = move_position
+        self.value = move_value
+
+    def to_dictionary(self):
+        value = self.value
+        if not isinstance(value, (int, float)):
+            value = value.to_dictionary()
+
+        return {"type": self.type.value, "position": self.position.to_dictionary(), "value": value}
+
+    @staticmethod
+    def from_dictionary(value):
+        move_type = MoveType(value["type"])
+        position = Position(value["position"]["x"], value["position"]["y"])
+        value = value["value"]  # Notice the aliasing...
+        if move_type is not MoveType.rotate:
+            value = Position(value["x"], value["y"])
+        return Move(move_type, position, value)
+
+    def __str__(self):
+        return "{ T: " + str(self.type.value) + ", P: " + str(self.position) + ", V: " + str(self.value) + "}"
 
 
 class Piece(object):

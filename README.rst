@@ -83,3 +83,6 @@ Provided is a very basic adversarial search algorithm that works with a low numb
 
 .. image:: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter3.png
     :target: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter3.png
+
+.. image:: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter4.png
+    :target: https://raw.githubusercontent.com/TheWiseLion/pykhet/master/docs/Iter4.png

@@ -10,31 +10,6 @@ class Game(KhetBoard):
 
     def __init__(self):
         super(Game, self).__init__()
-        self.winner = None
-
-    def apply_laser(self, color):
-        """
-        Returns path the laser took and piece destroyed (if any)
-        :param color:
-        :return:
-        """
-        if self.winner is not None:
-            raise RuntimeError("Game is already complete " + str(self.winner.value) + " won")
-        results = {}
-        path, piece = super(Game, self).apply_laser(color)
-
-        path_results = []
-        for p in path:
-            path_results.append({"position": p[0].to_dictionary(), "type": p[1].value})
-
-        if piece is not None:
-            results["destroyed"] = piece.to_dictionary()
-            if piece.type is PieceType.pharaoh:
-                self.winner = TeamColor.opposite_color(piece.color)
-                results["winner"] = self.winner.value
-
-        results["path"] = path_results
-        return results
 
 
 class ClassicGame(Game):
