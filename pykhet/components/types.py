@@ -23,9 +23,18 @@ class Move(object):
     def to_dictionary(self):
         value = self.value
         if not isinstance(value, (int, long, float)):
-            value = {"x", value.x, "y", value.y}
+            value = {"x": value.x, "y": value.y}
 
         return {"type": self.type.value, "position": {"x": self.position.x, "y": self.position.y}, "value": value}
+
+    @staticmethod
+    def from_dictionary(value):
+        move_type = MoveType(value["type"])
+        position = Position(value["position"]["x"], value["position"]["y"])
+        value = value["value"]  # Notice the aliasing...
+        if move_type is not MoveType.rotate:
+            value = Position(value["x"], value["y"])
+        return Move(move_type, position, value)
 
     def __str__(self):
         return "{ T: " + str(self.type.value) + ", P: " + str(self.position) + ", V: " + str(self.value) + "}"
@@ -248,6 +257,9 @@ class Piece(object):
     @staticmethod
     def from_dictionary(value):
         return Piece(PieceType(value["type"]), TeamColor(value["color"]), Orientation(value["orientation"]))
+
+    def __str__(self):
+        return "(" + str(self.color.value) + "," + str(self.type.value) + "," + str(self.orientation.value) + ")"
 
 
 class Square(object):

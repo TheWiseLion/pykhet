@@ -1,6 +1,7 @@
 import unittest
 
 from pykhet.components.board import KhetBoard, Piece, PieceType, Position, Orientation, TeamColor, LaserPathType
+from pykhet.components.types import MoveType, Move
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -9,6 +10,21 @@ class TestBoardMethods(unittest.TestCase):
 
     def tearDown(self):
         self.board = None
+
+    def test_serialize(self):
+        m1 = Move(MoveType.move, Position(1, 2), Position(2, 2))
+        m2 = Move(MoveType.rotate, Position(1, 2), 90)
+        m3 = Move(MoveType.swap, Position(1, 2), Position(2, 2))
+
+        self.assertEquals(str(m1), str(Move.from_dictionary(m1.to_dictionary())))
+        self.assertEquals(str(m2), str(Move.from_dictionary(m2.to_dictionary())))
+        self.assertEquals(str(m3), str(Move.from_dictionary(m3.to_dictionary())))
+
+        p1 = Piece(PieceType.scarab, TeamColor.silver, Orientation.down)
+        p2 = Piece(PieceType.sphinx, TeamColor.red, Orientation.left)
+
+        self.assertEquals(str(p1), str(Piece.from_dictionary(p1.to_dictionary())))
+        self.assertEquals(str(p2), str(Piece.from_dictionary(p2.to_dictionary())))
 
     def test_set(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))
