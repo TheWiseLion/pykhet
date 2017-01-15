@@ -15,6 +15,8 @@ The Khet board game logic and structures implemented in python. Also exposes adv
     from pykhet.components.types import TeamColor
     from pykhet.games.game_types import ClassicGame
     import random
+    from pykhet.solvers.minmax import MinmaxSolver
+
     # Create a game with classic piece placement
     game = ClassicGame()
 
@@ -26,6 +28,13 @@ The Khet board game logic and structures implemented in python. Also exposes adv
 
     # Finish the turn by applying the laser
     game.apply_laser(TeamColor.silver)
+
+    # Use adversarial search to pick a move
+    solver = MinmaxSolver()
+    move = solver.get_move(game, TeamColor.red)
+    game.apply_move(move)
+    game.apply_laser(TeamColor.red)
+
 
 Board Layout
 ------------
