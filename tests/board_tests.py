@@ -13,7 +13,7 @@ class TestBoardMethods(unittest.TestCase):
 
     def test_serialize(self):
         m1 = Move(MoveType.move, Position(1, 2), Position(2, 2))
-        m2 = Move(MoveType.rotate, Position(1, 2), 90)
+        m2 = Move(MoveType.rotate, Position(1, 2), Orientation.down)
         m3 = Move(MoveType.swap, Position(1, 2), Position(2, 2))
 
         self.assertEquals(str(m1), str(Move.from_dictionary(m1.to_dictionary())))
