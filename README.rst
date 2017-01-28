@@ -38,7 +38,7 @@ The Khet board game logic and structures implemented in python. Also exposes adv
 
 Serialization
 -------------
-There is ample support to serialize the state of objects as dictionaries. Useful for easy storage as json.
+There is ample support to serializing the state of objects as dictionaries. Useful for easy storage as json.
 
 .. code-block:: python
 

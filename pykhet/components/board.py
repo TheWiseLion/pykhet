@@ -159,7 +159,7 @@ class KhetBoard(object):
         path = self.get_laser_path(color)
         if path[-1].type is LaserPathType.hit:
             square = self.get(path[-1].position.x, path[-1].position.y)
-            if (square.piece.type is PieceType.anubis and square.piece.orientation is path[-1].direction) \
+            if (square.piece.type is PieceType.anubis and square.piece.orientation is Orientation.delta(path[-1].direction,-180)) \
                     or square.piece.type is PieceType.sphinx:
                 # Hit but not destroyed
                 pass

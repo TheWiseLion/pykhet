@@ -84,6 +84,13 @@ class TestClassicGames(unittest.TestCase):
         self.assertEquals(len(p4_red), 8)
         self.assertEquals(len(p4_red), len(p4_silver))
 
+
+        p5_silver = self.game.get(7, 0).get_moves(self.game)
+        p5_red = self.game.get(2, 7).get_moves(self.game)
+        # 4 moves, 2 rotations
+        self.assertEquals(len(p5_silver), 6)
+        self.assertEquals(len(p5_red), len(p5_silver))
+
     def test_destroy_pieces_classic(self):
         self.game.apply_move(Move(MoveType.move, Position(2, 1), Position(2, 0)))
         self.game.apply_laser(TeamColor.silver)

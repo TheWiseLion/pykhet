@@ -32,8 +32,8 @@ class TeamColor(Enum):
 class Orientation(Enum):
     """Class for orientations"""
     up = 0
-    left = 90
-    right = 270
+    left = 270
+    right = 90
     down = 180
     none = -1
 
@@ -99,8 +99,8 @@ class PieceType(Enum):
         :param to_piece: Square
         :return: Boolean
         """
-        # Check Place Color
-        if to_piece.color is not TeamColor.blank and from_piece.color is not to_piece.color:
+        # Check Place Color (square we are entering is blank or same color)
+        if to_piece.color is not TeamColor.blank and from_piece.piece.color is not to_piece.color:
             return False
 
         # Make sure it's a movable piece
@@ -245,7 +245,8 @@ class LaserPathNode(object):
         return LaserPathNode(path_type, position, direction)
 
     def __str__(self):
-        return "( "+str(self.type.value)+", "+str(self.position)+", "+str(self.direction.value)+")"
+        return "( " + str(self.type.value) + ", " + str(self.position) + ", " + str(self.direction.value) + ")"
+
 
 class Move(object):
     def __init__(self, move_type, move_position, move_value):
@@ -255,8 +256,11 @@ class Move(object):
 
     def to_dictionary(self):
         value = self.value
-        if not isinstance(value, (int, float)):
+        if isinstance(value, Position):
             value = value.to_dictionary()
+
+        if isinstance(value, Orientation):
+            value = value.value
 
         return {"type": self.type.value, "position": self.position.to_dictionary(), "value": value}
 
@@ -267,6 +271,9 @@ class Move(object):
         value = value["value"]  # Notice the aliasing...
         if move_type is not MoveType.rotate:
             value = Position(value["x"], value["y"])
+        else:
+            value = Orientation(value)
+
         return Move(move_type, position, value)
 
     def __str__(self):
@@ -310,7 +317,7 @@ class Square(object):
                    board.get(self.position.x + 1, self.position.y + 1),
                    board.get(self.position.x - 1, self.position.y + 1),
                    board.get(self.position.x - 1, self.position.y - 1)]
-        squares = [x for x in squares if x is not None and (x.color is TeamColor.blank or x.color is self.color)]
+        squares = [x for x in squares if x is not None and (x.color is TeamColor.blank or x.color is self.piece.color)]
 
         moves = []
         # Get Valid Moves

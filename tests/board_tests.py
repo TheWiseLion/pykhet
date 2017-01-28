@@ -32,6 +32,9 @@ class TestBoardMethods(unittest.TestCase):
         laser = LaserPathNode(LaserPathType.bounce, Position(0, 0), Orientation.down)
         self.assertEquals(str(laser), str(LaserPathNode.from_dictionary(laser.to_dictionary())))
 
+        # TODO: Validate that the deserialized pieces can be used in moves
+
+
     def test_set(self):
         self.board.set_piece(Position(0, 0), Piece(PieceType.sphinx, TeamColor.silver, Orientation.down))
         self.board.set_piece(Position(9, 7), Piece(PieceType.sphinx, TeamColor.red, Orientation.up))
