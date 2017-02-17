@@ -1,6 +1,7 @@
 # Solver Chooses From Available Moves
 import random
-
+import khetsearch
+from pykhet.solvers import optimal_board as ob
 from pykhet.components.board import KhetBoard
 from pykhet.components.types import Position, Piece, PieceType, TeamColor, Orientation, Move, MoveType
 
@@ -156,8 +157,7 @@ class MinmaxSolver(object):
             return min(root.children, key=lambda x: x.score).move
 
 
-import khetsearch
-import optimal_board as ob
+
 
 
 # game = ClassicGame()
