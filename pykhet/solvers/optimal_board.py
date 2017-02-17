@@ -1,5 +1,5 @@
 """
-Hard Core Optimized Permutation Utilizing Numpy for minimum storage and near native speed. Number of branch paths minimized
+Translation from C binding to native python state for board/game state.
 #TODO: edge case - scarab on silver location, swap on to non-silver
 """
 # Piece Types
