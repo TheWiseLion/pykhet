@@ -2,9 +2,6 @@
 Hard Core Optimized Permutation Utilizing Numpy for minimum storage and near native speed. Number of branch paths minimized
 #TODO: edge case - scarab on silver location, swap on to non-silver
 """
-import numpy as np
-# from numba import jit
-
 # Piece Types
 from pykhet.components.types import PieceType, Orientation, TeamColor
 from pykhet.games.game_types import ClassicGame
