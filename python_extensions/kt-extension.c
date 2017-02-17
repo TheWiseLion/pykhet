@@ -1,7 +1,17 @@
 #include <Python.h>
 #include <stdio.h>
 #include "minmax.h"
-#define PyInt_AsLong PyLong_AsLong
+
+
+/// Python 3 uses different api -_- ///
+#ifdef PyLong_FromLong
+    #define PyInt_AsLong PyLong_AsLong
+    #define PyInt_FromLong PyLong_FromLong
+#endif
+/// Only tears my friends ///
+
+
+
 /***
 *
 * Color (byte), Board State (80 bytes), Min depth, # Iterations (2 bytes)
