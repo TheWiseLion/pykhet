@@ -195,7 +195,7 @@ class CMinMaxSolver(object):
         results = khetsearch.khetsearch(numeric_color, numeric_board, self.min_depth, self.max_evaluations)
         move_ratings = []
         # print(str(len(results))+" results")
-        for x in range(0, len(results) / 2):
+        for x in range(0, int(len(results) / 2)):
 
             value = results[x * 2]
             score = results[x * 2 + 1]
