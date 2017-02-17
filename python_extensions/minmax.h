@@ -7,13 +7,6 @@
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define MIN(a,b) ((a) < (b) ? a : b)
 
-/// Python 3 uses different api -_- ///
-#ifdef PyLong_FromLong
-    #define PyInt_AsLong PyLong_AsLong
-    #define PyInt_FromLong PyLong_FromLong
-#endif
-/// Only tears my friends ///
-
 /***
 * Functions For Preforming Alpha-Beta Search with the worlds **sh@ttiest** huerisitic
 * It may also be useful to keep a hash at each node so identical boards arent explored more than once.

@@ -10,7 +10,7 @@ setup(
     author='John Mecham',
     author_email='jon.mecham@gmail.com',
     url='https://github.com/TheWiseLion/pykhet',  # use the URL to the github repo
-    download_url='https://github.com/TheWiseLion/pykhet/tarball/0.12',
+    download_url='https://github.com/TheWiseLion/pykhet/tarball/0.14',
     keywords=['khet', 'boardgame', 'khet2.0', 'laser-chess', 'ai'],  # arbitrary keywords
     classifiers=['Topic :: Games/Entertainment :: Board Games',
                  'Programming Language :: Python :: 2.7',
