@@ -1,6 +1,8 @@
 # Solver Chooses From Available Moves
+import random
+
 from pykhet.components.board import KhetBoard
-from pykhet.components.types import Position, Piece, PieceType, TeamColor, Orientation
+from pykhet.components.types import Position, Piece, PieceType, TeamColor, Orientation, Move, MoveType
 
 piece_to_score = {PieceType.anubis: 2, PieceType.pyramid: 1, PieceType.scarab: 0, PieceType.sphinx: 0}
 
@@ -153,4 +155,93 @@ class MinmaxSolver(object):
         else:
             return min(root.children, key=lambda x: x.score).move
 
+
+import khetsearch
+import optimal_board as ob
+
+
+# game = ClassicGame()
+# board = board_to_node(game)
+# print(len(board_to_node(game)))
+# results = khetsearch.khetsearch(_red, board, 3, 100000)
+# print results[75*2:]
+
+class CMinMaxSolver(object):
+    """
+    Iterative Search Based On Alpha-Beta Pruning & Known Path Favoritism
+
+    """
+
+    def __init__(self, max_evaluations=100000, min_depth=2, bias=0.01):
+        """
+
+        :param max_evaluations:
+        :param min_depth: TODO: minimum depth to accept a move path
+        """
+        self.max_evaluations = max_evaluations
+        self.min_depth = min_depth
+        self.bias = bias
+
+    def get_move(self, board, color):
+        """
+        Return the next move (and some stats) for the given color
+        :param board:
+        :param color:
+        :return:
+        """
+        numeric_board = ob.board_to_node(board)
+        numeric_color = ob.color_to_byte_color(color)
+        print(str(numeric_board))
+        results = khetsearch.khetsearch(numeric_color, numeric_board, self.min_depth, self.max_evaluations)
+        move_ratings = []
+        # print(str(len(results))+" results")
+        for x in range(0, len(results) / 2):
+
+            value = results[x * 2]
+            score = results[x * 2 + 1]
+
+            base = (value >> 16) & 0x7FFF
+            other_value = value & 0xFFFF
+            xp = base >> 8
+            yp = base & 0xFF
+            rotate = (value >> 31) & 0x1
+            pos = Position(xp, yp)
+            move = None
+            if rotate == 1:
+                # print(str(pos)+" rotates "+ob.move_value_to_orientation(other_value).name+" -- "+str(other_value))
+                move = Move(MoveType.rotate, pos, ob.move_value_to_orientation(other_value))
+            else:
+                pos2 = Position(other_value >> 8, other_value & 0xFF)
+                # print(str(pos)+" to "+str(pos2))
+
+                if board.get(pos2.x, pos2.y).piece is None:
+                    move = Move(MoveType.move, pos, pos2)
+                else:
+                    move = Move(MoveType.swap, pos, pos2)
+
+
+            move_ratings.append({
+                "move": move,
+                "score": score
+            })
+
+        reasonable_moves = []
+        # Lowest first if silver, highest first if red
+        move_ratings = sorted(move_ratings, key=lambda lx: lx["score"], reverse=(color is TeamColor.red))
+
+        min_score = move_ratings[0]["score"]
+        print("Min Score: "+str(min_score))
+        for move in move_ratings:
+            # We want values higher than min score if red
+            if color is TeamColor.red and min_score <= move["score"]:
+                reasonable_moves.append(move)
+
+            # We want values lower than min score if silver
+            elif color is TeamColor.silver and min_score >= move["score"]:
+                reasonable_moves.append(move)
+
+        r_move = random.choice(reasonable_moves)
+        print("Chosen Score: " + str(r_move["score"]) + " Move: "+str(r_move["move"]))
+
+        return r_move["move"]
 

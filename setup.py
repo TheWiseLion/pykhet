@@ -1,9 +1,11 @@
-from setuptools import setup
+from setuptools import setup, Extension
+
+test_module = Extension('khetsearch', sources=['python_extensions/kt-extension.c'])
 
 setup(
     name='pykhet',
     packages=['pykhet','pykhet.components','pykhet.games','pykhet.solvers'],  # this must be the same as the name above
-    version='0.12',
+    version='0.13',
     description='A general library for the board game khet',
     author='John Mecham',
     author_email='jon.mecham@gmail.com',
@@ -21,5 +23,5 @@ setup(
     install_requires=[
           'enum34',
     ],
-
+    ext_modules=[test_module]
 )
