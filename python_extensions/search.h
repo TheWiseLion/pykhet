@@ -192,9 +192,9 @@ char bounce_direction(char piece,char orientation,char light_direction){
 * Some squares only allow certain color...
 */
 char color_matches_square(char color,int x1,int y2){
-    if (color == _red && (x1 == 0 || (y2 == 0 && x1 == 9) || (y2 == 7 && x1 == 9)))
+    if (color == _red && (x1 == 0 || (y2 == 0 && x1 == 8) || (y2 == 7 && x1 == 8)))
         return 0;
-    else if (color == _silver && (x1 == 9 || (y2 == 0 && x1 == 2) || (y2 == 7 && x1 == 2)))
+    else if (color == _silver && (x1 == 9 || (y2 == 0 && x1 == 1) || (y2 == 7 && x1 == 1)))
         return 0;
     else
         return 1;

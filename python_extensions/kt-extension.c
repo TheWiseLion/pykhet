@@ -1,7 +1,7 @@
 #include <Python.h>
 #include <stdio.h>
 #include "minmax.h"
-
+#define PyInt_AsLong PyLong_AsLong
 /***
 *
 * Color (byte), Board State (80 bytes), Min depth, # Iterations (2 bytes)

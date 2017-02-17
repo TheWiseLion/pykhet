@@ -5,7 +5,7 @@ test_module = Extension('khetsearch', sources=['python_extensions/kt-extension.c
 setup(
     name='pykhet',
     packages=['pykhet','pykhet.components','pykhet.games','pykhet.solvers'],  # this must be the same as the name above
-    version='0.13',
+    version='0.14',
     description='A general library for the board game khet',
     author='John Mecham',
     author_email='jon.mecham@gmail.com',
