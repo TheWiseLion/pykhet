@@ -1,8 +1,8 @@
 from setuptools import setup, Extension
 
-test_module = Extension('khetsearch', sources=['python_extensions/kt-extension.c'
-    ,'python_extensions/search.h'
-    ,'python_extensions/minmax.h'])
+test_module = Extension('khetsearch',
+                        sources=['python_extensions/kt-extension.c'],
+                        include_dirs=['python_extensions'])
 
 setup(
     name='pykhet',
