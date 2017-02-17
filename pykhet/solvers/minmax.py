@@ -191,7 +191,7 @@ class CMinMaxSolver(object):
         """
         numeric_board = ob.board_to_node(board)
         numeric_color = ob.color_to_byte_color(color)
-        print(str(numeric_board))
+
         results = khetsearch.khetsearch(numeric_color, numeric_board, self.min_depth, self.max_evaluations)
         move_ratings = []
         # print(str(len(results))+" results")
@@ -240,8 +240,8 @@ class CMinMaxSolver(object):
             elif color is TeamColor.silver and min_score >= move["score"]:
                 reasonable_moves.append(move)
 
+        # Randomly Choose A Move Amongst Equivalent' Moves
         r_move = random.choice(reasonable_moves)
-        print("Chosen Score: " + str(r_move["score"]) + " Move: "+str(r_move["move"]))
 
         return r_move["move"]
 

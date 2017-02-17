@@ -29,22 +29,21 @@ class TestClassicGameSolver(unittest.TestCase):
     #         iterations += 1
 
     def test_c_minmax(self):
-        solver = CMinMaxSolver(max_evaluations=100000)
+        solver1 = CMinMaxSolver(max_evaluations=100000)
+        solver2 = CMinMaxSolver(max_evaluations=2500)
         game = ClassicGame()
         iterations = 0
         color = TeamColor.silver
 
-        # for x in xrange(0, 5):
-        #     move = solver.get_move(game, color)
-
         while game.winner is None:
-            # if iterations > 300:
-            #     self.assertTrue(False)  # Game should have ended..
-            move = solver.get_move(game, color)
-            try:
-                game.apply_move(move)
-            except:
-                print "stop"
+            if color is TeamColor.red:
+                move = solver1.get_move(game, color)
+            else:
+                move = solver2.get_move(game, color)
+            game.apply_move(move)
             game.apply_laser(color)
             color = TeamColor.opposite_color(color)
             iterations += 1
+
+        # Red should win as it has a significant advantage
+        self.assertTrue(game.winner is TeamColor.red)
