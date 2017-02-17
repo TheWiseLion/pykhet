@@ -6,6 +6,10 @@
 #include <stdio.h>
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define MIN(a,b) ((a) < (b) ? a : b)
+//#include <queue>
+//#include <ctime>
+//#include <map>
+//#include <algorithm>
 
 /***
 * Functions For Preforming Alpha-Beta Search with the worlds **sh@ttiest** huerisitic
@@ -97,7 +101,8 @@ void updateHueristic(int nodeIndex,struct BoardContainer * bc){
             }
         }
 
-        update->nodeHueristic = value + (positiveCount-negativeCount)*0.008f; //Score + bias
+        //Bias: (positiveCount-negativeCount)*0.008f <-- Seems to not help... at all...
+        update->nodeHueristic = value ; //Score + bias
 //        printf("Bias: %f v %f\n", (positiveCount-negativeCount)*0.008f,update->nodeHueristic);
 
 //        if(update->nodeHueristic < -1){
