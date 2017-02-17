@@ -30,7 +30,7 @@ class TestClassicGameSolver(unittest.TestCase):
 
     def test_c_minmax(self):
         solver1 = CMinMaxSolver(max_evaluations=100000)
-        solver2 = CMinMaxSolver(max_evaluations=2500)
+        solver2 = CMinMaxSolver(max_evaluations=1000)
         game = ClassicGame()
         iterations = 0
         color = TeamColor.silver
