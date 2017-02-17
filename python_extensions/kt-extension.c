@@ -76,7 +76,29 @@ static PyMethodDef khetsearch_funcs[] = {
     {NULL}
 };
 
+
+/// Python 3 different initialization -_- ///
+#if PY_MAJOR_VERSION >= 3
+    static struct PyModuleDef spammodule = {
+       PyModuleDef_HEAD_INIT,
+       "khetsearch",   /* name of module */
+       khetsearch_docs, /* module documentation, may be NULL */
+       -1,       /* size of per-interpreter state of the module,
+                    or -1 if the module keeps state in global variables. */
+       khetsearch_funcs
+    };
+    PyMODINIT_FUNC PyInit_spam(void)
+    {
+        return PyModule_Create(&spammodule);
+    }
+
+
+#else
+
 void initkhetsearch(void)
 {
     Py_InitModule3("khetsearch", khetsearch_funcs, "Extension module example!");
 }
+
+#endif
+/// Only tears my friends ///
