@@ -230,7 +230,7 @@ class CMinMaxSolver(object):
         move_ratings = sorted(move_ratings, key=lambda lx: lx["score"], reverse=(color is TeamColor.red))
 
         min_score = move_ratings[0]["score"]
-        print("Min Score: "+str(min_score))
+        # print("Min Score: "+str(min_score))
         for move in move_ratings:
             # We want values higher than min score if red
             if color is TeamColor.red and min_score <= move["score"]:
