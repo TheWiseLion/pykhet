@@ -29,7 +29,7 @@ class TestClassicGameSolver(unittest.TestCase):
     #         iterations += 1
 
     def test_c_minmax(self):
-        solver1 = CMinMaxSolver(max_evaluations=100000)
+        solver1 = CMinMaxSolver(max_evaluations=200000)
         solver2 = CMinMaxSolver(max_evaluations=1000)
         game = ClassicGame()
         iterations = 0
