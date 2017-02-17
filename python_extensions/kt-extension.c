@@ -1,7 +1,7 @@
 #include <Python.h>
 #include <stdio.h>
 #include "minmax.h"
-
+#include "search.h"
 
 /// Python 3 uses different api -_- ///
 #if PY_MAJOR_VERSION >= 3
