@@ -3,12 +3,7 @@
 #include "minmax.h"
 
 
-/// Python 3 uses different api -_- ///
-#ifdef PyLong_FromLong
-    #define PyInt_AsLong PyLong_AsLong
-    #define PyInt_FromLong PyLong_FromLong
-#endif
-/// Only tears my friends ///
+
 
 
 

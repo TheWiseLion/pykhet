@@ -6,10 +6,13 @@
 #include <stdio.h>
 #define MAX(a,b) ((a) > (b) ? a : b)
 #define MIN(a,b) ((a) < (b) ? a : b)
-//#include <queue>
-//#include <ctime>
-//#include <map>
-//#include <algorithm>
+
+/// Python 3 uses different api -_- ///
+#ifdef PyLong_FromLong
+    #define PyInt_AsLong PyLong_AsLong
+    #define PyInt_FromLong PyLong_FromLong
+#endif
+/// Only tears my friends ///
 
 /***
 * Functions For Preforming Alpha-Beta Search with the worlds **sh@ttiest** huerisitic
