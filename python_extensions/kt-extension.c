@@ -79,7 +79,7 @@ static PyMethodDef khetsearch_funcs[] = {
 
 /// Python 3 different initialization -_- ///
 #if PY_MAJOR_VERSION >= 3
-    static struct PyModuleDef spammodule = {
+    static struct PyModuleDef khetModule = {
        PyModuleDef_HEAD_INIT,
        "khetsearch",   /* name of module */
        khetsearch_docs, /* module documentation, may be NULL */
@@ -87,9 +87,10 @@ static PyMethodDef khetsearch_funcs[] = {
                     or -1 if the module keeps state in global variables. */
        khetsearch_funcs
     };
-    PyMODINIT_FUNC PyInit_spam(void)
+
+    PyMODINIT_FUNC PyInit_khetsearch(void)
     {
-        return PyModule_Create(&spammodule);
+        return PyModule_Create(&khetModule);
     }
 
 
